@@ -1,0 +1,26 @@
+{
+  "name": "exceptnomore",
+  "version": "1.1.0",
+  "description": "Result and Optional types that will make your code exception-proof",
+  "main": "build/index.js",
+  "scripts": {
+    "test": "jest",
+    "coverage": "jest --coverage",
+    "build": "tsc"
+  },
+  "keywords": [
+    "result",
+    "optional",
+    "maybe",
+    "monad"
+  ],
+  "module": "exceptnomore",
+  "author": "Carlo Dell'Acqua",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/jest": "^25.2.1",
+    "jest": "^26.0.1",
+    "ts-jest": "^25.5.0",
+    "typescript": "^3.8.3"
+  }
+}
