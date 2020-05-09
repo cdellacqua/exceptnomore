@@ -30,10 +30,10 @@ describe('constructors sync suite', function () {
         }).unwrap()).toBe('everything was fine');
     });
     it('creates results from optionals', function () {
-        expect(Result.fromOptional(Optional.empty()).isErr).toBe(true);
-        expect(Result.fromOptional(Optional.of(1)).isOk).toBe(true);
-        expect(Result.fromOptional(Optional.ofNullable(undefined)).isErr).toBe(true);
-        expect(Result.fromOptional(Optional.ofNullable(null)).isErr).toBe(true);
+        expect(Result.fromOptional(Optional.empty(), 'oh no').isErr).toBe(true);
+        expect(Result.fromOptional(Optional.of(1), 'oh no').isOk).toBe(true);
+        expect(Result.fromOptional(Optional.ofNullable(undefined), 'oh no').isErr).toBe(true);
+        expect(Result.fromOptional(Optional.ofNullable(null), 'oh no').isErr).toBe(true);
     });
 });
 

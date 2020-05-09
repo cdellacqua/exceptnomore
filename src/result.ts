@@ -2,25 +2,23 @@ import { Optional } from "./optional";
 
 export class Result<TOk, TErr> {
 
-    private okValue: TOk|undefined = undefined;
-    private errValue: TErr|undefined = undefined;
+    private okValue: TOk|null = null;
+    private errValue: TErr|null = null;
 
-    private constructor(okValue: TOk|undefined, errValue: TErr|undefined) {
+    private constructor(okValue: TOk|null, errValue: TErr|null) {
         this.okValue = okValue;
         this.errValue = errValue;
     }
 
     static ok<TOk>(value: TOk) {
-        return new Result<TOk, any>(value, undefined);
+        return new Result<TOk, any>(value, null);
     }
     static err<TErr>(value: TErr) {
-        return new Result<any, TErr>(undefined, value);
+        return new Result<any, TErr>(null, value);
     }
 
-    static fromOptional<O, TErr>(optional: Optional<O>, errIfEmpty: TErr): Result<O,TErr>;
-    static fromOptional<O>(optional: Optional<O>): Result<O,null>;
-    static fromOptional<O, TErr>(optional: Optional<O>, errIfEmpty?: TErr): Result<O,TErr> {
-        return optional.isEmpty ? Result.err<TErr>(errIfEmpty ?? null!) : Result.ok<O>(optional.unwrap()!);
+    static fromOptional<O, TErr>(optional: Optional<O>, errIfEmpty: TErr): Result<O,TErr> {
+        return optional.isEmpty ? Result.err<TErr>(errIfEmpty) : Result.ok<O>(optional.unwrap()!);
     }
 
     static fromThrower<TOk, TErr = Error>(callback: () => TOk): Result<TOk, TErr> {
@@ -43,22 +41,22 @@ export class Result<TOk, TErr> {
     }
 
     get isOk() {
-        return this.okValue !== undefined;
+        return this.okValue !== null;
     }
 
     get isErr() {
-        return this.errValue !== undefined;
+        return this.errValue !== null;
     }
 
     unwrap() {
-        if (this.okValue === undefined) {
+        if (this.okValue === null) {
             throw new Error('Cannot call unwrap on error result');
         }
         return this.okValue;
     }
     
     unwrapErr() {
-        if (this.errValue === undefined) {
+        if (this.errValue === null) {
             throw new Error('Cannot call unwrapErr on ok result');
         }
         return this.errValue;
@@ -68,11 +66,11 @@ export class Result<TOk, TErr> {
         return Optional.fromResult(this);
     }
 
-    else(value: TOk) {
-        return this.isOk ? this.okValue : value;
+    else(value: TOk): TOk {
+        return this.isOk ? this.okValue! : value;
     }
-    elseErr(value: TErr) {
-        return this.isErr ? this.errValue : value;
+    elseErr(value: TErr): TErr {
+        return this.isErr ? this.errValue! : value;
     }
 
     ifOk(f: (value: TOk) => any): Result<TOk, TErr> {

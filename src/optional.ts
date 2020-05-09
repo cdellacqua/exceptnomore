@@ -2,7 +2,7 @@ import { Result } from "./result";
 
 export class Optional<T> {
 
-    private value: T|null|undefined = null;
+    private value: T|null = null;
 
     private constructor(value: T|null) {
         this.value = value;
@@ -53,23 +53,25 @@ export class Optional<T> {
         }
         return this.value!;
     }
+    
+    unwrapNullable(): T|null {
+        return this.value;
+    }
 
     get isEmpty() {
-        return this.value === undefined || this.value === null;
+        return this.value === null;
     }
 
     get isPresent() {
         return !this.isEmpty;
     }
 
-    toResult(): Result<T, null>;
-    toResult<TErr>(errIfEmpty: TErr): Result<T, TErr>;
-    toResult<TErr>(errIfEmpty?: TErr): Result<T, TErr> {
-        return Result.fromOptional<T, TErr>(this, errIfEmpty ?? null!);
+    toResult<TErr>(errIfEmpty: TErr): Result<T, TErr> {
+        return Result.fromOptional<T, TErr>(this, errIfEmpty);
     }
 
-    else(value: T) {
-        return this.isEmpty ? value : this.value;
+    else(value: T): T {
+        return this.isEmpty ? value : this.value!;
     }
 
     map<O>(f: (value: T) => O): Optional<O> {
@@ -143,10 +145,6 @@ export class Optional<T> {
         }
         
         return this;
-    }
-
-    toNullable() {
-        return this.isEmpty ? null : this.value;
     }
 
     filter(predicate: (value: T) => boolean): Optional<T> {

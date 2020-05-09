@@ -62,8 +62,8 @@ describe('unwrap value', function () {
         expect(() => Optional.empty().unwrap()).toThrowError();
     });
     it('converts to nullable"', function () {
-        expect(Optional.of('ok').toNullable()).toBe('ok');
-        expect(Optional.empty().toNullable()).toBeNull();
+        expect(Optional.of('ok').unwrapNullable()).toBe('ok');
+        expect(Optional.empty().unwrapNullable()).toBeNull();
     });
 });
 
