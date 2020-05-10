@@ -66,6 +66,12 @@ export class Optional<T> {
         return !this.isEmpty;
     }
 
+    /**
+     * Generates a Result from an Optional. If the Optional has a value, the latter will
+     * be wrapped as an Ok Result, otherwise an Error Result will be created with the specified error.
+     * @param optional the Optional that will be used to generate the Result
+     * @param errIfEmpty the Error value of the Result in case the Optional is empty
+     */
     toResult<TErr>(errIfEmpty: TErr): Result<T, TErr> {
         return Result.fromOptional<T, TErr>(this, errIfEmpty);
     }
