@@ -11,18 +11,18 @@ export class Result<TOk, TErr> {
     }
 
     /**
-     * Generates a Result of type "Ok"
+     * Generates a Result of type Ok
      * @param value the Ok value of the Result
      */
-    static ok<TOk>(value: TOk) {
+    static ok<TOk>(value: TOk): Result<TOk, any> {
         return new Result<TOk, any>(value, null);
     }
 
     /**
-     * Generates a Result of type "Error"
+     * Generates a Result of type Error
      * @param value the Error value of the Result
      */
-    static err<TErr>(value: TErr) {
+    static err<TErr>(value: TErr): Result<any, TErr> {
         return new Result<any, TErr>(null, value);
     }
 
@@ -130,12 +130,21 @@ export class Result<TOk, TErr> {
         return this.isErr ? this.errValue! : value;
     }
 
+    /**
+     * If the Result is of type Ok, the provided function is executed
+     * @param f a function that takes the Ok value of the Result
+     */
     ifOk(f: (value: TOk) => any): Result<TOk, TErr> {
         if (this.isOk) {
             f(this.okValue!);
         }
         return this;
     }
+
+    /**
+     * If the Result is of type Ok, the provided async function is executed
+     * @param f a function that takes the Ok value of the Result
+     */
     async ifOkAsync(f: (value: TOk) => Promise<any>): Promise<Result<TOk, TErr>> {
         if (this.isOk) {
             await f(this.okValue!);
@@ -143,12 +152,21 @@ export class Result<TOk, TErr> {
         return this;
     }
     
+    /**
+     * If the Result is of type Error, the provided function is executed
+     * @param f a function that takes the Error value of the Result
+     */
     ifErr(f: (value: TErr) => any): Result<TOk, TErr> {
         if (this.isErr) {
             f(this.errValue!);
         }
         return this;
     }
+    
+    /**
+     * If the Result is of type Error, the provided async function is executed
+     * @param f a function that takes the Error value of the Result
+     */
     async ifErrAsync(f: (value: TErr) => Promise<any>): Promise<Result<TOk, TErr>> {
         if (this.isErr) {
             await f(this.errValue!);
@@ -156,6 +174,11 @@ export class Result<TOk, TErr> {
         return this;
     }
 
+    /**
+     * Executes one of the provided functions based on the type of the Result
+     * @param fOk a function that takes the Ok value of the Result
+     * @param fErr a function that takes the Error value of the Result
+     */
     if(fOk: (value: TOk) => any, fErr?: (value: TErr) => any): Result<TOk, TErr> {
         this.ifOk(fOk);
         if (fErr) {
@@ -164,6 +187,12 @@ export class Result<TOk, TErr> {
         
         return this;
     }
+
+    /**
+     * Executes one of the provided async functions based on the type of the Result
+     * @param fOk a function that takes the Ok value of the Result
+     * @param fErr a function that takes the Error value of the Result
+     */
     async ifAsync(fOk: (value: TOk) => Promise<any>, fErr?: (value: TErr) => Promise<any>): Promise<Result<TOk, TErr>> {
         await this.ifOkAsync(fOk);
         if (fErr) {
@@ -173,20 +202,52 @@ export class Result<TOk, TErr> {
         return this;
     }
 
+    /**
+     * If the Result is of type Ok, its value is passed to the provided function and the return
+     * value of the latter is wrapped in a new Ok Result. Otherwise, the Error value is preserved and the
+     * function is not executed
+     * @param f the mapping function from TOk to TOk2
+     */
     map<TOk2>(f: (value: TOk) => TOk2): Result<TOk2, TErr> {
         return this.isOk ? Result.ok(f(this.okValue!)) : Result.err(this.errValue!);
     }
+
+    /**
+     * If the Result is of type Ok, its value is passed to the provided async function and the return
+     * value of the latter is wrapped in a new Ok Result. Otherwise, the Error value is preserved and the
+     * function is not executed
+     * @param f the mapping function from TOk to TOk2
+     */
     async mapAsync<TOk2>(f: (value: TOk) => Promise<TOk2>): Promise<Result<TOk2, TErr>> {
         return this.isOk ? Result.ok(await f(this.okValue!)) : Result.err(this.errValue!);
     }
 
+    /**
+     * If the Result is of type Error, its value is passed to the provided function and the return
+     * value of the latter is wrapped in a new Error Result. Otherwise, the Ok value is preserved and the
+     * function is not executed
+     * @param f the mapping function from TErr to TErr2
+     */
     mapErr<TErr2>(f: (value: TErr) => TErr2): Result<TOk, TErr2> {
         return this.isErr ? Result.err(f(this.errValue!)) : Result.ok(this.okValue!);
     }
+
+    /**
+     * If the Result is of type Error, its value is passed to the provided async function and the return
+     * value of the latter is wrapped in a new Error Result. Otherwise, the Ok value is preserved and the
+     * function is not executed
+     * @param f the mapping function from TErr to TErr2
+     */
     async mapErrAsync<TErr2>(f: (value: TErr) => Promise<TErr2>): Promise<Result<TOk, TErr2>> {
         return this.isErr ? Result.err(await f(this.errValue!)) : Result.ok(this.okValue!);
     }
 
+    /**
+     * If the Result is of type Ok, its value is passed to the provided function and the return
+     * value of the latter is returned. Otherwise, the Error value is preserved and the
+     * function is not executed
+     * @param f the mapping function from TOk to Result<TOk2, TErr>
+     */
     flatMap<TOk2>(f: (value: TOk) => Result<TOk2, TErr>): Result<TOk2, TErr> {
         if (this.isOk) {
             return f(this.okValue!);
@@ -194,6 +255,13 @@ export class Result<TOk, TErr> {
             return Result.err(this.errValue!);
         }
     }
+
+    /**
+     * If the Result is of type Ok, its value is passed to the provided async function and the return
+     * value of the latter is returned. Otherwise, the Error value is preserved and the
+     * function is not executed
+     * @param f the mapping function from TOk to Result<TOk2, TErr>
+     */
     async flatMapAsync<TOk2>(f: (value: TOk) => Promise<Result<TOk2, TErr>>): Promise<Result<TOk2, TErr>> {
         if (this.isOk) {
             return await f(this.okValue!);
@@ -202,6 +270,12 @@ export class Result<TOk, TErr> {
         }
     }
 
+    /**
+     * If the Result is of type Error, its value is passed to the provided function and the return
+     * value of the latter is returned. Otherwise, the Ok value is preserved and the
+     * function is not executed
+     * @param f the mapping function from TOk to Result<TOk, TErr2>
+     */
     flatMapErr<TErr2>(f: (value: TErr) => Result<TOk, TErr2>): Result<TOk, TErr2> {
         if (this.isErr) {
             return f(this.errValue!);
@@ -209,6 +283,13 @@ export class Result<TOk, TErr> {
             return Result.ok(this.okValue!);
         }
     }
+
+    /**
+     * If the Result is of type Error, its value is passed to the provided async function and the return
+     * value of the latter is returned. Otherwise, the Ok value is preserved and the
+     * function is not executed
+     * @param f the mapping function from TOk to Result<TOk, TErr2>
+     */
     async flatMapErrAsync<TErr2>(f: (value: TErr) => Promise<Result<TOk, TErr2>>): Promise<Result<TOk, TErr2>> {
         if (this.isErr) {
             return await f(this.errValue!);
