@@ -2,6 +2,17 @@
 
 # Class: Result <**TOk, TErr**>
 
+The Result class is meant to be an alternative to the more common
+throw statements.
+A Result can be either Ok or Error. The former wraps the
+value returned by a function that successfully executed its
+instructions. The latter can be used to return an exception,
+or a generic reason why the function couldn't successfully return.
+
+By using the Result type, the caller of a function
+can explicitly see that it may fail and can handle both the
+success and error conditions with the fluent API provided by this class.
+
 ## Type parameters
 
 ▪ **TOk**

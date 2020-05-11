@@ -2,6 +2,15 @@
 
 # Class: Optional <**T**>
 
+The Optional class is meant to be an alternative to the more common
+'return null'/'return undefined' statements.
+An Optional can be either Present or Empty. The former wraps the
+value returned by a function. The latter can be used instead of null/undefined.
+
+By using the Optional type, the caller of a function
+can explicitly see that it may not return any meaningful value and can handle both the
+present and empty conditions with the fluent API provided by this class.
+
 ## Type parameters
 
 ▪ **T**

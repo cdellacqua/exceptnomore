@@ -1,5 +1,17 @@
 import { Optional } from "./optional";
 
+/**
+ * The Result class is meant to be an alternative to the more common
+ * throw statements.
+ * A Result can be either Ok or Error. The former wraps the
+ * value returned by a function that successfully executed its
+ * instructions. The latter can be used to return an exception,
+ * or a generic reason why the function couldn't successfully return.
+ * 
+ * By using the Result type, the caller of a function
+ * can explicitly see that it may fail and can handle both the
+ * success and error conditions with the fluent API provided by this class.
+ */
 export class Result<TOk, TErr> {
 
     private okValue: TOk|null = null;
@@ -55,7 +67,7 @@ export class Result<TOk, TErr> {
         try {
             return Result.ok(await callback());
         } catch (err) {
-            return Result.err<TErr>(err);
+            return Result.err<TErr>(err ?? new Error('Catched empty exception, this may indicate a Promise that rejected without a reason'));
         }
     }
     

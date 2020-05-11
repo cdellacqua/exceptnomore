@@ -1,9 +1,9 @@
 # exceptnomore
 
 Result and Optional types that will make your code exception-proof.
+
 This library allows you to wrap Promises, async functions and
-even generic statements that may throw exceptions in objects
-that will wrap those exceptions for a cleaner code with less try/catches and a better and more explicit Error Handling.
+normal functions in objects that will wrap those exceptions for a cleaner code with less try/catches and a better and more explicit Error Handling.
 
 ## Full documentation:
 * [Result](docs/classes/result.md)
@@ -42,7 +42,7 @@ functionThatReturnsTheUserIdAsAnOptional()
 functionThatReturnsTheUserIdAsAnOptional()
     .flatMap(id => mayNotFindUserData(id))
     .ifPresent(u => console.log(`Hello ${u.firstName}`))
-    .ifEmpty(() => console.debug(err));
+    .ifEmpty(() => console.debug('Not found'));
     // the callback passed to ifEmpty gets called if
     // 'functionThatReturnsTheUserIdAsAnOptional'
     // or 'mayNotFindUserData' return an Empty Optional
@@ -52,7 +52,7 @@ functionThatReturnsTheUserIdAsAnOptional()
 ## Example use cases:
 
 #### A function call that may throw an exception
-Before - the callee is not aware that the function may throw an exception:
+Before - the caller is not aware that the function may throw an exception:
 ```
 function evil(): number {
     const n = Math.random();
@@ -65,7 +65,7 @@ function evil(): number {
 
 console.log(evil()); // This statement can crash
 ```
-After - the return type explicitly tells the callee that the function may return an error (also telling the type of it):
+After - the return type explicitly tells the caller that the function may return an error (also telling the type of it):
 ```
 function evil(): Result<number, Error> {
     const n = Math.random();

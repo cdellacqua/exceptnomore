@@ -39,6 +39,7 @@ describe('constructors sync suite', function () {
 
 describe('constructors async suite', function () {
     it('creates results from promises', async function () {
+        expect((await Result.fromPromise(Promise.reject())).unwrapErr()).not.toBeUndefined();
         expect((await Result.fromPromise(Promise.reject(new Error()))).isErr).toBe(true);
         expect((await Result.fromPromise(Promise.resolve(1))).isOk).toBe(true);
         expect((await Result.fromPromise(Promise.resolve(new Error()))).isOk).toBe(true);
