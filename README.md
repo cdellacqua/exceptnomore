@@ -6,8 +6,8 @@ This library allows you to wrap Promises, async functions and
 normal functions in objects that will wrap those exceptions for a cleaner code with less try/catches and a better and more explicit Error Handling.
 
 ## Full documentation:
-* [Result](docs/classes/result.md)
-* [Optional](docs/classes/optional.md)
+* [Result](https://github.com/cdellacqua/exceptnomore/blob/master/docs/classes/result.md)
+* [Optional](https://github.com/cdellacqua/exceptnomore/blob/master/docs/classes/optional.md)
 
 ## Highlights
 
