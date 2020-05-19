@@ -87,7 +87,7 @@ export class Optional<T> {
     /**
      * Generates an Empty Optional
      */
-    static empty<O>(): Optional<O> {
+    static empty<O = any>(): Optional<O> {
         return new Optional<O>(null);
     }
     

@@ -20,7 +20,7 @@
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/cdellacqua/exceptnomore.git"
+    "url": "git+https://github.com/cdellacqua/exceptnomore.git"
   },
   "bugs": {
     "url": "https://github.com/cdellacqua/exceptnomore/issues"
