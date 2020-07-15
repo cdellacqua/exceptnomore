@@ -56,6 +56,10 @@ export class Result<TOk, TErr> {
         try {
             return Result.ok(callback());
         } catch (err) {
+            if (process?.env?.NODE_ENV !== 'production') {
+                console.error('Creating error Result containing the following exception:');
+                console.error(err);
+            }
             return Result.err<TErr>(err);
         }
     }
@@ -67,7 +71,12 @@ export class Result<TOk, TErr> {
         try {
             return Result.ok(await callback());
         } catch (err) {
-            return Result.err<TErr>(err ?? new Error('Catched empty exception, this may indicate a Promise that rejected without a reason'));
+            err = err ?? new Error('Catched empty exception, this may indicate a Promise that rejected and did not pass any error');
+            if (process?.env?.NODE_ENV !== 'production') {
+                console.error('Creating error Result containing the following exception:');
+                console.error(err);
+            }
+            return Result.err<TErr>(err);
         }
     }
     

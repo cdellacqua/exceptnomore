@@ -15,3 +15,17 @@ describe('sync suite', function () {
         expect(Result.fromOptional(Optional.empty(), 'ko').unwrapErr()).toBe('ko');
     });
 });
+
+describe('error logging', function () {
+    it('logs Result error from promise', async function () {
+        console.error = jest.fn();
+        process.env.NODE_ENV = 'production';
+        await Result.fromPromise(Promise.reject('fail'));
+        expect(console.error).not.toHaveBeenCalled();
+
+        console.error = jest.fn();
+        process.env.NODE_ENV = 'development';
+        await Result.fromPromise(Promise.reject('fail'));
+        expect(console.error).toHaveBeenCalled();
+    });
+});

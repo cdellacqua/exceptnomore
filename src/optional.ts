@@ -47,6 +47,10 @@ export class Optional<T> {
         try {
             return Optional.of<O>(callback());
         } catch (err) {
+            if (process?.env?.NODE_ENV !== 'production') {
+                console.error('Creating empty Optional because of the following exception:');
+                console.error(err);
+            }
             return Optional.empty<O>();
         }
     }
@@ -60,6 +64,10 @@ export class Optional<T> {
         try {
             return Optional.of<O>(await callback());
         } catch (err) {
+            if (process?.env?.NODE_ENV !== 'production') {
+                console.error('Creating empty Optional because of the following exception:');
+                console.error(err);
+            }
             return Optional.empty<O>();
         }
     }

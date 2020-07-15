@@ -1,6 +1,6 @@
 {
   "name": "exceptnomore",
-  "version": "1.2.1",
+  "version": "1.2.2",
   "description": "Result and Optional types that will make your code exception-proof",
   "main": "build/index.js",
   "types": "build/index.d.ts",
@@ -26,12 +26,15 @@
     "url": "https://github.com/cdellacqua/exceptnomore/issues"
   },
   "homepage": "https://github.com/cdellacqua/exceptnomore",
-  "files": ["build/**/*"],
+  "files": [
+    "build/**/*"
+  ],
   "module": "exceptnomore",
   "author": "Carlo Dell'Acqua",
   "license": "MIT",
   "devDependencies": {
     "@types/jest": "^25.2.1",
+    "@types/node": "^14.0.23",
     "jest": "^26.0.1",
     "ts-jest": "^25.5.0",
     "typedoc": "^0.17.6",
