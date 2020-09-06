@@ -1,6 +1,6 @@
 {
   "name": "exceptnomore",
-  "version": "1.2.2",
+  "version": "1.2.3",
   "description": "Result and Optional types that will make your code exception-proof",
   "main": "build/index.js",
   "types": "build/index.d.ts",

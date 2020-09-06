@@ -1,5 +1,9 @@
 import { Result, Optional } from "../src/index";
 
+beforeAll(() => {
+    console.error = jest.fn();
+});
+
 describe('constructors sync suite', function () {
     it('creates results', function () {
         expect(Result.ok(0)).toBeInstanceOf(Result);

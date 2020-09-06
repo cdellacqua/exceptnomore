@@ -1,5 +1,9 @@
 import { Result, Optional } from "../src/index";
 
+beforeAll(() => {
+    console.error = jest.fn();
+});
+
 describe('sync suite', function () {
     it('transform result to optional', function () {
         expect(Result.ok(1).toOptional().unwrap()).toBe(1);

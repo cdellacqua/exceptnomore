@@ -1,5 +1,9 @@
 import { Result, Optional } from "../src/index";
 
+beforeAll(() => {
+    console.error = jest.fn();
+});
+
 describe('constructors sync suite', function () {
     it('creates optionals', function () {
         expect(Optional.of(0)).toBeInstanceOf(Optional);
