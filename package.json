@@ -1,9 +1,10 @@
 {
   "name": "exceptnomore",
-  "version": "1.2.3",
+  "version": "1.2.4",
   "description": "Result and Optional types that will make your code exception-proof",
   "main": "build/index.js",
   "types": "build/index.d.ts",
+  "module": "build/index.js",
   "scripts": {
     "test": "jest",
     "coverage": "jest --coverage",
@@ -29,7 +30,6 @@
   "files": [
     "build/**/*"
   ],
-  "module": "exceptnomore",
   "author": "Carlo Dell'Acqua",
   "license": "MIT",
   "devDependencies": {
