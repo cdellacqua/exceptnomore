@@ -1,14 +1,13 @@
 {
   "name": "exceptnomore",
-  "version": "1.2.4",
+  "version": "1.2.5",
   "description": "Result and Optional types that will make your code exception-proof",
   "main": "build/index.js",
   "types": "build/index.d.ts",
-  "module": "build/index.js",
   "scripts": {
     "test": "jest",
     "coverage": "jest --coverage",
-    "build": "tsc",
+    "build": "rimraf build && tsc",
     "doc": "typedoc --disableSources --mode file --toc Optional,Result --excludeNotExported --excludeProtected --excludePrivate --plugin typedoc-plugin-markdown src --exclude src/index.ts --readme none",
     "prepare": "npm run build",
     "prepublishOnly": "npm test"
@@ -36,6 +35,7 @@
     "@types/jest": "^25.2.1",
     "@types/node": "^14.0.23",
     "jest": "^26.0.1",
+    "rimraf": "^3.0.2",
     "ts-jest": "^25.5.0",
     "typedoc": "^0.17.6",
     "typedoc-plugin-markdown": "^2.2.17",
