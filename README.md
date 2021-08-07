@@ -5,6 +5,11 @@ Result and Optional types that will make your code exception-proof.
 This library allows you to wrap Promises, async functions and
 normal functions in objects that will wrap those exceptions for a cleaner code with less try/catches and a better and more explicit Error Handling.
 
+
+[NPM Package](https://www.npmjs.com/package/exceptnomore)
+
+`npm install exceptnomore`
+
 ## Full documentation:
 * [Result](https://github.com/cdellacqua/exceptnomore/blob/master/docs/classes/result.md)
 * [Optional](https://github.com/cdellacqua/exceptnomore/blob/master/docs/classes/optional.md)
