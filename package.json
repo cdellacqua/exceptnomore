@@ -1,6 +1,6 @@
 {
   "name": "exceptnomore",
-  "version": "1.2.6",
+  "version": "1.2.7",
   "description": "Result and Optional types that will make your code exception-proof",
   "main": "build/index.cjs.js",
   "module": "build/index.esm.js",
