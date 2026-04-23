@@ -1,8 +1,4 @@
-import { Result, Optional } from "../src/index";
-
-beforeAll(() => {
-    console.error = jest.fn();
-});
+import { Result, Optional } from "../src/index.js";
 
 describe('constructors sync suite', function () {
     it('creates optionals', function () {

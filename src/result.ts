@@ -1,4 +1,4 @@
-import { Optional } from "./optional";
+import { Optional } from "./optional.js";
 
 /**
  * The Result class is meant to be an alternative to the more common
@@ -56,11 +56,7 @@ export class Result<TOk, TErr> {
         try {
             return Result.ok(callback());
         } catch (err) {
-            if (process?.env?.NODE_ENV !== 'production') {
-                console.error('Creating error Result containing the following exception:');
-                console.error(err);
-            }
-            return Result.err<TErr>(err);
+            return Result.err<TErr>(err as TErr);
         }
     }
     /**
@@ -71,12 +67,7 @@ export class Result<TOk, TErr> {
         try {
             return Result.ok(await callback());
         } catch (err) {
-            err = err ?? new Error('Catched empty exception, this may indicate a Promise that rejected and did not pass any error');
-            if (process?.env?.NODE_ENV !== 'production') {
-                console.error('Creating error Result containing the following exception:');
-                console.error(err);
-            }
-            return Result.err<TErr>(err);
+            return Result.err<TErr>(err as TErr);
         }
     }
     
