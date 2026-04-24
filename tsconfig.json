@@ -1,7 +1,9 @@
 {
 	"compilerOptions": {
 		"target": "ESNext",
+		"useDefineForClassFields": true,
 		"module": "NodeNext",
+		"lib": ["ES2022", "DOM"],
 		"moduleResolution": "NodeNext",
 		"types": ["node", "vitest/globals"],
 		"strict": true,

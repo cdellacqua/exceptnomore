@@ -3,7 +3,7 @@ import tsPlugin from '@typescript-eslint/eslint-plugin';
 
 export default [
 	{
-		ignores: ['build/**', 'coverage/**', 'dist/**', 'docs/**', 'node_modules/**'],
+		ignores: ['coverage/**', 'dist/**', 'docs/**', 'node_modules/**'],
 	},
 	{
 		files: ['**/*.js'],
@@ -27,7 +27,7 @@ export default [
 		},
 		rules: {
 			'prettier/prettier': 'off',
-			'@typescript-eslint/explicit-module-boundary-types': 'warn',
+			'@typescript-eslint/explicit-module-boundary-types': 'off',
 			'no-shadow': 'off',
 			'@typescript-eslint/no-shadow': 'error',
 			'@typescript-eslint/no-misused-promises': 'error',

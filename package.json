@@ -17,7 +17,7 @@
     "test:watch": "vitest",
     "build": "vite build --mode lib && vite build --mode umd",
     "typecheck": "tsc",
-    "doc": "typedoc --gitRevision main --readme none --plugin typedoc-plugin-markdown src/index.ts",
+    "doc": "rimraf docs && typedoc --gitRevision master --readme none --plugin typedoc-plugin-markdown src/index.ts",
     "check": "npm run lint && npm run typecheck && npm run test",
     "prepack": "npm run check && npm run build && npm run doc",
     "lint": "eslint --max-warnings 0 .",
