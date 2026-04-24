@@ -87,12 +87,12 @@ describe('conditional execution', function () {
 
         ext = undefined;
         Optional.empty()
-            .if(v => ext = 'ok', () => ext = 'ko')
+            .if(_v => ext = 'ok', () => ext = 'ko')
         expect(ext).toBe('ko');
 
         ext = undefined;
         Optional.empty()
-            .if(v => ext = 'ok')
+            .if(_v => ext = 'ok')
         expect(ext).toBe(undefined);
 
         ext = undefined;
@@ -166,11 +166,11 @@ describe('Optional filter functions', function () {
     it('filters optional', function () {
         expect(Optional.of(1).filter(Boolean).isPresent).toBe(true);
         expect(Optional.of(0).filter(Boolean).isPresent).toBe(false);
-        expect(Optional.empty().filter(() => !!'not executed').isPresent).toBe(false);
+        expect(Optional.empty().filter(() => true).isPresent).toBe(false);
     });
     it('filters optional async', async function () {
         expect((await Optional.of(1).filterAsync(async v => Boolean(v))).isPresent).toBe(true);
         expect((await Optional.of(0).filterAsync(async v => Boolean(v))).isPresent).toBe(false);
-        expect((await Optional.empty().filterAsync(async () => !!'not executed')).isPresent).toBe(false);
+        expect((await Optional.empty().filterAsync(async () => true)).isPresent).toBe(false);
     });
 });

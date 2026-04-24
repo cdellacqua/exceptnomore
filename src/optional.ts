@@ -46,7 +46,7 @@ export class Optional<T> {
     static fromThrower<O>(callback: () => O): Optional<O> {
         try {
             return Optional.of<O>(callback());
-        } catch (err) {
+        } catch {
             return Optional.empty<O>();
         }
     }
@@ -59,7 +59,7 @@ export class Optional<T> {
     static async fromThrowerAsync<O>(callback: () => Promise<O>): Promise<Optional<O>> {
         try {
             return Optional.of<O>(await callback());
-        } catch (err) {
+        } catch {
             return Optional.empty<O>();
         }
     }
@@ -112,13 +112,13 @@ export class Optional<T> {
     /**
      * Returns true if the Optional is Empty, false otherwise
      */
-    get isEmpty() {
+    get isEmpty(): boolean {
         return this.value === null;
     }
     /**
      * Returns true if the Optional is Present, false otherwise
      */
-    get isPresent() {
+    get isPresent(): boolean {
         return !this.isEmpty;
     }
 
@@ -176,7 +176,7 @@ export class Optional<T> {
      * function is not executed
      * @param f the mapping function from T to O
      */
-    flatMap<O>(f: (value: T) => Optional<O>) {
+    flatMap<O>(f: (value: T) => Optional<O>): Optional<O> {
         if (this.isEmpty) {
             return Optional.empty<O>();
         } else {

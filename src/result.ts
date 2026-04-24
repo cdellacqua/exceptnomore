@@ -82,14 +82,14 @@ export class Result<TOk, TErr> {
     /**
      * Returns true if the Result is of type Ok, false otherwise
      */
-    get isOk() {
+    get isOk(): boolean {
         return this.okValue !== null;
     }
 
     /**
      * Returns true if the Result is of type Error, false otherwise
      */
-    get isErr() {
+    get isErr(): boolean {
         return this.errValue !== null;
     }
 
@@ -97,7 +97,7 @@ export class Result<TOk, TErr> {
      * Returns the Ok value of a Result
      * @throws {Error} if the Result is of type Error
      */
-    unwrap() {
+    unwrap(): TOk {
         if (this.okValue === null) {
             throw new Error('Cannot call unwrap on error result');
         }
@@ -108,7 +108,7 @@ export class Result<TOk, TErr> {
      * Returns the Error value of a Result
      * @throws {Error} if the Result is of type Ok
      */
-    unwrapErr() {
+    unwrapErr(): TErr {
         if (this.errValue === null) {
             throw new Error('Cannot call unwrapErr on ok result');
         }

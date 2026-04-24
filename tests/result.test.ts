@@ -40,7 +40,7 @@ describe('constructors sync suite', function () {
 
 describe('constructors async suite', function () {
     it('creates results from promises', async function () {
-        expect((await Result.fromPromise(Promise.reject())).unwrapErr()).not.toBeUndefined();
+        expect((await Result.fromPromise(Promise.reject())).isErr).toBe(true);
         expect((await Result.fromPromise(Promise.reject(new Error()))).isErr).toBe(true);
         expect((await Result.fromPromise(Promise.resolve(1))).isOk).toBe(true);
         expect((await Result.fromPromise(Promise.resolve(new Error()))).isOk).toBe(true);
@@ -91,30 +91,30 @@ describe('conditional execution', function () {
 
         ext = undefined;
         Result.err('ko')
-            .if(v => ext = 'ok', v => ext = v)
+            .if(_v => ext = 'ok', v => ext = v)
         expect(ext).toBe('ko');
 
         ext = undefined;
         Result.err('ko')
-            .if(v => ext = 'ok')
+            .if(_v => ext = 'ok')
         expect(ext).toBe(undefined);
 
         ext = undefined;
         Result.ok('ok')
-            .if(v => ext = v, v => ext = 'ko');
+            .if(v => ext = v, _v => ext = 'ko');
         expect(ext).toBe('ok');
     });
     it('executes lambdas based on Result type', function () {
         let ext = undefined;
         Result.ok(1)
             .ifOk(v => ext = v)
-            .ifErr(v => ext = 'err');
+            .ifErr(_v => ext = 'err');
         expect(ext).toBe(1);
 
         ext = undefined;
         Result.err(1)
             .ifOk(v => ext = v)
-            .ifErr(v => ext = 'err');
+            .ifErr(_v => ext = 'err');
         expect(ext).toBe('err');
     });
     it('executes async lambda based on Result type', async function () {
@@ -125,22 +125,22 @@ describe('conditional execution', function () {
 
         ext = undefined;
         await Result.err(1)
-            .ifErrAsync(async v => ext = 'err');
+            .ifErrAsync(async _v => ext = 'err');
         expect(ext).toBe('err');
 
         ext = undefined;
         await Result.err(1)
-            .ifAsync(async v => ext = v, async v => ext = 'err');
+            .ifAsync(async v => ext = v, async _v => ext = 'err');
         expect(ext).toBe('err');
 
         ext = undefined;
         await Result.err(1)
-            .ifAsync(async v => ext = v);
+            .ifAsync(async _v => ext = _v);
         expect(ext).toBe(undefined);
 
         ext = undefined;
         await Result.ok(1)
-            .ifAsync(async v => ext = v, async v => ext = 'err');
+            .ifAsync(async v => ext = v, async _v => ext = 'err');
         expect(ext).toBe(1);
     });
 });

@@ -1,18 +1,29 @@
 {
   "name": "exceptnomore",
+  "camelCaseName": "exceptNoMore",
   "version": "1.2.14",
   "description": "Result and Optional types that will make your code exception-proof",
-  "types": "build/index.d.ts",
-  "main": "build/index.cjs",
-  "module": "build/index.js",
+  "types": "./dist/index.d.ts",
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
   "type": "module",
+  "sideEffects": false,
+  "engines": {
+    "node": ">=20"
+  },
   "scripts": {
-    "test": "jest",
-    "coverage": "jest --coverage",
-    "build": "rimraf build && rollup -c && tsc --declaration --emitDeclarationOnly --declarationDir build",
-    "doc": "typedoc --disableSources --mode file --toc Optional,Result --excludeNotExported --excludeProtected --excludePrivate --plugin typedoc-plugin-markdown src --exclude src/index.ts --readme none",
-    "prepare": "npm run build",
-    "prepublishOnly": "npm test"
+    "coverage": "vitest run --coverage",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "build": "vite build --mode lib && vite build --mode umd",
+    "typecheck": "tsc",
+    "doc": "typedoc --gitRevision main --readme none --plugin typedoc-plugin-markdown src/index.ts",
+    "check": "npm run lint && npm run typecheck && npm run test",
+    "prepack": "npm run check && npm run build && npm run doc",
+    "lint": "eslint --max-warnings 0 .",
+    "lint:fix": "eslint --fix .",
+    "format": "prettier --check .",
+    "format:fix": "prettier --write ."
   },
   "keywords": [
     "result",
@@ -29,29 +40,33 @@
   },
   "homepage": "https://github.com/cdellacqua/exceptnomore",
   "files": [
-    "build/**/*"
+    "dist"
   ],
   "exports": {
     ".": {
-      "import": "./build/index.js",
-      "require": "./build/index.cjs"
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs"
     },
     "./package.json": "./package.json"
   },
   "author": "Carlo Dell'Acqua",
   "license": "MIT",
   "devDependencies": {
-    "@rollup/plugin-commonjs": "^16.0.0",
-    "@rollup/plugin-node-resolve": "^10.0.0",
-    "@rollup/plugin-typescript": "^6.1.0",
-    "@types/jest": "^25.2.1",
-    "@types/node": "^14.0.23",
-    "jest": "^26.0.1",
-    "rimraf": "^3.0.2",
-    "rollup": "^2.32.1",
-    "ts-jest": "^25.5.0",
-    "typedoc": "^0.17.8",
-    "typedoc-plugin-markdown": "^2.2.17",
-    "typescript": "4.7.4"
+    "@types/node": "^20.19.39",
+    "@typescript-eslint/eslint-plugin": "^8.59.0",
+    "@typescript-eslint/parser": "^8.59.0",
+    "@vitest/coverage-v8": "^4.1.5",
+    "eslint": "^10.2.1",
+    "eslint-config-prettier": "^10.1.8",
+    "eslint-plugin-prettier": "^5.5.4",
+    "prettier": "^3.8.3",
+    "rimraf": "^6.1.3",
+    "typedoc": "^0.28.19",
+    "typedoc-plugin-markdown": "^4.11.0",
+    "typescript": "^6.0.3",
+    "vite": "^8.0.10",
+    "vite-plugin-dts": "^4.5.4",
+    "vitest": "^4.1.5"
   }
 }
