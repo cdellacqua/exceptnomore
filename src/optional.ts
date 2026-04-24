@@ -66,8 +66,7 @@ export class Optional<T> {
     /**
      * Generates an Optional from a Promise. If it was resolved its value is wrapped in a Present Optional, otherwise
      * an Empty Optional is returned
-     * @param callback a function that may or may not thr
-     * @param promise 
+     * @param promise a Promise that may resolve with a value or reject.
      */
     static async fromPromise<O>(promise: Promise<O>): Promise<Optional<O>> {
         return this.fromThrowerAsync<O>(() => promise);
@@ -125,7 +124,6 @@ export class Optional<T> {
     /**
      * Generates a Result from an Optional. If the Optional has a value, the latter will
      * be wrapped as an Ok Result, otherwise an Error Result will be created with the specified error.
-     * @param optional the Optional that will be used to generate the Result
      * @param errIfEmpty the Error value of the Result in case the Optional is empty
      */
     toResult<TErr>(errIfEmpty: TErr): Result<T, TErr> {
@@ -258,8 +256,8 @@ export class Optional<T> {
     
     /**
      * Executes one of the provided async functions based on the type of the Optional
-     * @param fPresent a function that takes the value of the Optional
-     * @param fEmpty a function that does not have parameters
+     * @param fOk a function that takes the value of the Optional
+     * @param fErr a function that does not have parameters
      */
     async ifAsync(fOk: (value: T) => Promise<any>, fErr?: () => Promise<any>): Promise<Optional<T>> {
         await this.ifPresentAsync(fOk);

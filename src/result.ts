@@ -73,7 +73,7 @@ export class Result<TOk, TErr> {
     
     /**
      * Generates a Result given a Promise that may resolve with a value (wrapped as an Ok Result) or reject with a value (wrapped as an Error Result)
-     * @param callback a function that may or may not throw and exception.
+     * @param promise a Promise that may resolve with a value or reject with an error value.
      */
     static async fromPromise<TOk, TErr = Error>(promise: Promise<TOk>): Promise<Result<TOk, TErr>> {
         return this.fromThrowerAsync<TOk, TErr>(() => promise);
