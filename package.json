@@ -1,7 +1,7 @@
 {
   "name": "exceptnomore",
   "camelCaseName": "exceptNoMore",
-  "version": "1.2.14",
+  "version": "2.0.0",
   "description": "Result and Optional types that will make your code exception-proof",
   "types": "./dist/index.d.ts",
   "main": "./dist/index.cjs",

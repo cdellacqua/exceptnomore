@@ -1,10 +1,10 @@
-[exceptnomore](README.md)
+**exceptnomore**
+
+***
 
 # exceptnomore
 
-## Index
+## Classes
 
-### Classes
-
-* [Optional](classes/optional.md)
-* [Result](classes/result.md)
+- [Optional](classes/Optional.md)
+- [Result](classes/Result.md)
